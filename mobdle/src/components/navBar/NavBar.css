@@ -1,0 +1,49 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Wyrównanie elementów w pionie */
+    background-color: #0c1a2b; /* Ciemny niebieski (kolor nocnego nieba) */
+    color: white;
+    padding: 16px;
+    position: sticky;
+    top: 0px;
+    height: 5vh;
+}
+
+.mainPageContainer {
+    display: flex; /* Umożliwia użycie flexboxa */
+    align-items: center; /* Wyrównanie elementów w pionie */
+}
+
+.mainPageContainerButton a {
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    transition: color 0.3s ease;
+    margin-right: 20px;
+}
+
+.mainPageContainerButton a:hover {
+    color: #a0c4ff;
+}
+
+.logInContainer {
+    display: flex; 
+    align-items: center;
+}
+
+.logInContainerButton a {
+    text-decoration: none;
+    font-size: 40px;
+    font-weight: normal;
+    padding: 8px 16px;
+    border: 1px solid #a0c4ff; 
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #a0c4ff ;
+}
+
+.logInContainerButton a:hover {
+    background-color: #a0c4ff;
+    color: #0c1a2b;
+}
