@@ -1,4 +1,4 @@
-.navBar {
+.nb_navBar {
     display: flex;
     justify-content: space-between;
     align-items: center; /* Wyrównanie elementów w pionie */
@@ -10,12 +10,12 @@
     height: 5vh;
 }
 
-.mainPageContainer {
+.nb_mainPageContainer {
     display: flex; /* Umożliwia użycie flexboxa */
     align-items: center; /* Wyrównanie elementów w pionie */
 }
 
-.mainPageContainerButton a {
+.nb_mainPageContainerButton a {
     text-decoration: none;
     color: white;
     font-size: 40px;
@@ -23,18 +23,18 @@
     margin-right: 20px;
 }
 
-.mainPageContainerButton a:hover {
+.nb_mainPageContainerButton a:hover {
     color: #a0c4ff;
 }
 
-.logInContainer {
+.nb_logInContainer {
     display: flex; 
     align-items: center;
 }
 
-.logInContainerButton a {
+.nb_logInContainerButton a {
     text-decoration: none;
-    font-size: 40px;
+    font-size: 2vh;
     font-weight: normal;
     padding: 8px 16px;
     border: 1px solid #a0c4ff; 
@@ -43,7 +43,11 @@
     color: #a0c4ff ;
 }
 
-.logInContainerButton a:hover {
+.nb_logInContainerButton a:hover {
     background-color: #a0c4ff;
     color: #0c1a2b;
+}
+
+@media screen and (max-width:480px) {
+
 }

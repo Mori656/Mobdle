@@ -15,7 +15,6 @@
 
 * {
     box-sizing: border-box;
-    color: #fff;
     font-family: 'minecraft-regular';
 }
 .hp_mainContainer {
@@ -44,13 +43,9 @@
     background-clip: text;
     background-image: url("../../assets/Stone.png");
     background-size: auto;
-    font-size: 20em;
+    font-size: 12vw;
     color: transparent;
     font-family: 'minecraft-ten';
-}
-.hp_logo img {
-    width: 100%;
-    height: auto;
 }
 
 .hp_startButton {
@@ -59,19 +54,47 @@
     background-image: url("../../assets/SpruceWood.png");
     background-size:auto;
     background-position: top;
-    font-size: 4em;
+    font-size: 2.5vw;
     color: #fff;
 }
 
 .hp_startButton:hover {
-    margin-top: 1em;
-    padding: 0.5em;
     background-image: url("../../assets/OakWood.png");
-    background-size:auto;
-    background-position: top;
-    font-size: 4em;
     cursor: pointer;
 }
+
+@media screen and (max-width:1480px) {
+    .hp_contentContainer {
+        width: 50vw;
+    }
+
+    .hp_logo {
+        font-size: 12vw;
+        background-size: contain;
+    }
+
+    .hp_startButton{
+        font-size: 2.5vw;
+        background-size: contain ;
+    }
+}
+
+@media screen and (max-width:780px) {
+    .hp_contentContainer {
+        width: 80vw;
+    }
+
+    .hp_logo {
+        font-size: 19vw;
+        background-size: contain;
+    }
+
+    .hp_startButton{
+        font-size: 5vw;
+        background-size: contain ;
+    }
+}
+
 
 
 
