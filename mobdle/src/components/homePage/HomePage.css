@@ -1,18 +1,3 @@
-/* @font-face {
-    font-family: 'minecraft-ten';
-    src: url('../../assets/minecraft-ten.ttf') format('ttf'),
-         url('../../assets/minecraft-ten.ttf') format('ttf');
-    font-weight: normal; 
-    font-style: normal; 
-}
-@font-face {
-    font-family: 'minecraft-regular';
-    src: url('../../assets/minecraft-regular.otf') format('otf'),
-         url('../../assets/minecraft-regular.otf') format('otf');
-    font-weight: normal; 
-    font-style: normal; 
-} */
-
 * {
     box-sizing: border-box;
     font-family: 'minecraft-regular';
@@ -32,7 +17,7 @@
     align-items: center;
     padding-top: 2em;
     background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0),rgba(0.2, 0.2, 0.2, 0.8) 50%);
-    width: 50vw;
+    width: 60vw;
     margin: auto;
     height: auto;
     min-height: 50vh;

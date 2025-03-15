@@ -1,0 +1,54 @@
+.gp_mainContainer {
+    width: 100%;
+}
+
+.gp_guessingZone {
+    /* border: 10px red solid; */
+
+    margin: 5vh 5vw;
+    margin-bottom: 0;
+
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.gp_guessingZone button {
+    font-size: 3vh;
+    background-color: #a0c4ff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.gp_chosenOptions {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+
+.gp_chosenContainer {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.gp_chosenContainer div, .gp_chosenContainer img {
+    display: flex;
+
+    border: 2px #ccc solid;
+    width: 7vw;
+    height: 7vw;
+
+    overflow-wrap: break-word;
+    font-size: 2vh;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
