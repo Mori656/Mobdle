@@ -1,0 +1,30 @@
+.block {
+    /* color: #111; */
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .block.correct {
+    /* border: 4px solid #4caf50; */
+    background-image: url("../../assets/Green_Concrete.png");
+  }
+  
+  .block.wrong {
+    /* border: 4px solid #f44336; */
+    background-image: url("../../assets/Red_Concrete.png");
+  }
+  
+  .block.partial {
+    /* border: 4px solid #fffb00; */
+    background-image: url("../../assets/Yellow_Concrete.png");
+  }
+
+  .block.less {
+    /* border: 4px solid #f44336; */
+    background-image: url("../../assets/less.png");
+  }
+
+  .block.more {
+    /* border: 4px solid #f44336; */
+    background-image: url("../../assets/more.png");
+  }

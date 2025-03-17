@@ -1,3 +1,11 @@
+body {
+    background-image: url("../../assets/MainPageBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
 * {
     box-sizing: border-box;
     font-family: 'minecraft-regular';
@@ -5,9 +13,6 @@
 .hp_mainContainer {
     width: 100%;
     height: 95vh;
-    background-image: url("../../assets/MainPageBackground.jpg");
-    background-size: cover;
-    background-position: center;
     padding-top: 2vh;
 }
 .hp_contentContainer {
@@ -50,7 +55,7 @@
 
 @media screen and (max-width:1480px) {
     .hp_contentContainer {
-        width: 50vw;
+        width: 80vw;
     }
 
     .hp_logo {

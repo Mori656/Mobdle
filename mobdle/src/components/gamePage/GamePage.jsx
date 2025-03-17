@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './GamePage.css'
+import Block from '../gameBlock/GameBlock';
+
+const versions = [
+  'pre-alpha',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  'Beta 1.8',
+]
 
 const initialOptions = [
-  { name: 'Zombie', image: 'https://minecraft.wiki/images/ZombieFace.png?d1bba', version: 'pre-alpha', health: 20, height: 1.95, behavior: ['Hostile'], movement: ['Walking '], dimension: ['Overworld ']},
-  { name: 'Enderman', image: 'https://minecraft.wiki/images/EndermanFace.png?8ebeb', version: 'Beta 1.8', health: 200, height: 2.9, behavior: ['Neutral'], movement: ['Walking ','Teleportation '], dimension: ['End ', 'Overworld ', 'Nether ']},
+  { name: 'Zombie', image: 'https://minecraft.wiki/images/ZombieFace.png?d1bba', version: 0, health: 20, height: 1.95, behavior: ['Hostile'], movement: ['Walking'], dimension: ['Overworld']},
+  { name: 'Enderman', image: 'https://minecraft.wiki/images/EndermanFace.png?8ebeb', version: 9, health: 200, height: 2.9, behavior: ['Neutral'], movement: ['Walking','Teleportation'], dimension: ['End', 'Overworld', 'Nether']},
 ];
 
 const customStyles = {
@@ -71,17 +85,90 @@ const formatOptionLabel = ({ name, image }) => (
 function GamePage() {
   const [options, setOptions] = useState(initialOptions);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [chosen, setChosen] = useState([]); // do poprawy
+  const [triedOptions, setTriedOptions] = useState([]);
+  const [chosenMob, setChosenMob] = useState([]);
 
-  // cała funkcja do poprawy wsm
+  const checkStatus = (info) => {
+    const selectedValue = selectedOption[info];
+    const chosenValue = chosenMob[info];
+  
+    if (JSON.stringify(selectedValue) === JSON.stringify(chosenValue)) {
+      return 'correct';
+    }
+
+    if (Array.isArray(selectedValue)) {
+      if (selectedValue.some((val) => chosenValue.includes(val))) {
+        return 'partial';
+      }
+    }
+  
+    return 'wrong';
+  };
+
+  const checkStatus2 = (info) => {
+    const selectedValue = selectedOption[info];
+    const chosenValue = chosenMob[info];
+    if (selectedValue == chosenValue) {
+      return 'correct'
+    } else if (selectedValue < chosenValue ) {
+      return 'more'
+    } else {
+      return 'less'
+    }
+  };
+
   const handleSubmit = () => {
     if(selectedOption) {
-      setChosen((prevChosen) => [selectedOption, ...prevChosen])
+
+      const tmp = { 
+        name: selectedOption.name, 
+        image: selectedOption.image, 
+        version: selectedOption.version, 
+        versionStatus: checkStatus2('version'),
+        health: selectedOption.health, 
+        healthStatus: checkStatus2('health'),
+        height: selectedOption.height, 
+        heightStatus: checkStatus2('height'),
+        behavior: selectedOption.behavior, 
+        behaviorStatus: checkStatus('behavior'),
+        movement: selectedOption.movement, 
+        movementStatus: checkStatus('movement'),
+        dimension: selectedOption.dimension,
+        dimensionStatus: checkStatus('dimension')
+      }
+
+      setTriedOptions((prevChosen) => [tmp, ...prevChosen])
       setOptions((prevOptions) => prevOptions.filter(option => option.name !== selectedOption.name));
       setSelectedOption(null);
-      console.log(chosen);
     }
   }  
+
+  const preview = () => {
+    console.log(chosenMob)
+    
+  }
+
+  const getRandomMob = () => {
+    const i = Math.floor(Math.random() * options.length);
+    return initialOptions[i];
+  }
+
+  useEffect(() => {
+    const savedDate = localStorage.getItem('lastMobDate');
+    const savedMob = localStorage.getItem('lastMob');
+
+    const today = new Date().toDateString();
+
+    if (savedDate !== today){
+      const randomMob = getRandomMob();
+      localStorage.setItem('lastMobDate',today);
+      localStorage.setItem('lastMob',JSON.stringify(randomMob));
+      setChosenMob(randomMob);
+    } else if (savedMob) {
+      setChosenMob(JSON.parse(savedMob));
+    }
+  }, []);
+
 
   return (
     <div className='gp_mainContainer'>
@@ -100,22 +187,31 @@ function GamePage() {
             key={options.length}
         />
         <button onClick={handleSubmit}>{'>>'}</button>
+        <button onClick={preview}>{'?'}</button>
       </div>
       
 
       <div className='gp_chosenOptions'>
-          <h2>Wybrane:</h2>
-          {chosen.map((item, index) => (
-          <div key={index} className='gp_chosenContainer'>
-            <img src={item.image} alt={item.name} />
-            <div>{item.version}</div>
-            <div>{item.health}</div>
-            <div>{item.height}</div>
-            <div>{item.behavior}</div>
-            <div>{item.movement}</div>
-            <div>{item.dimension}</div>
-          </div>
-        ))}
+
+        <h2>Wybrane:</h2>
+        <div className='gp_overflowBox'>
+          {triedOptions.map((item, index) => (
+            <div key={index} className='gp_chosenContainer'>
+              <img src={item.image} alt={item.name} />
+                <Block status={item.versionStatus} text={versions[item.version]}></Block>
+                <Block status={item.healthStatus} text={item.health}></Block>
+                <Block status={item.heightStatus} text={item.height}></Block>
+              {/* <div>{item.behavior.map((value, key) => (
+
+                <p key={key}>{value}</p>
+              ))}</div> */}
+                <Block status={item.behaviorStatus} text={item.behavior}></Block>
+                <Block status={item.movementStatus} text={item.movement}></Block>
+                <Block status={item.dimensionStatus} text={item.dimension}></Block>
+                
+            </div>
+          ))}
+        </div>
           
       </div>
 

@@ -25,6 +25,17 @@
     color: #fff;
     text-align: center;
     margin-bottom: 5vh;
+    padding: 0px 10px;
+}
+
+.gp_overflowBox {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #a0c4ff #0c1a2b;
+    align-items: safe center;
 }
 
 
@@ -35,20 +46,24 @@
     margin-top: 1vh;
     margin-bottom: 1vh;
     align-items: center;
-    justify-content: center;
+    border-bottom: 3px #224 solid;
+    padding-bottom: 10px;
 }
 
 .gp_chosenContainer div, .gp_chosenContainer img {
     display: flex;
+    flex-direction: column;
+    line-height: 0;
 
-    border: 2px #ccc solid;
-    width: 7vw;
-    height: 7vw;
-
-    overflow-wrap: break-word;
-    font-size: 2vh;
+    min-width: 120px;
+    min-height: 120px;
+    font-size: 16px;
 
     text-align: center;
     align-items: center;
     justify-content: center;
+}
+
+.gp_chosenContainer img {
+    border: 3px #ccc solid;
 }
