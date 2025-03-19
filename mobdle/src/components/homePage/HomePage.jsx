@@ -1,7 +1,16 @@
 import NavBar from "../navBar/NavBar"
 import './HomePage.css'
+import GamePage from "../gamePage/GamePage"
+import { useState } from "react"
 
 function HomePage() {
+
+    const [game,setGame] = useState(false)
+
+    const startGame = () => {
+        setGame(true);
+    };
+
         return (
             <div>
                 <NavBar/>
@@ -11,9 +20,12 @@ function HomePage() {
                         <div className="hp_logo">
                             MOBDLE
                         </div>
-                        <div className="hp_startButton">
+                        {!game ? <div className="hp_startButton" onClick={startGame}>
                             Start game
-                        </div>
+                        </div>:
+                        <GamePage/>
+                        }
+                        
                     </div>
                 </div>
             </div>

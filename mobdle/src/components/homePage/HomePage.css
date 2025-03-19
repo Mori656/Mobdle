@@ -1,29 +1,18 @@
-/* @font-face {
-    font-family: 'minecraft-ten';
-    src: url('../../assets/minecraft-ten.ttf') format('ttf'),
-         url('../../assets/minecraft-ten.ttf') format('ttf');
-    font-weight: normal; 
-    font-style: normal; 
+body {
+    background-image: url("../../assets/MainPageBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
-@font-face {
-    font-family: 'minecraft-regular';
-    src: url('../../assets/minecraft-regular.otf') format('otf'),
-         url('../../assets/minecraft-regular.otf') format('otf');
-    font-weight: normal; 
-    font-style: normal; 
-} */
 
 * {
     box-sizing: border-box;
-    color: #fff;
     font-family: 'minecraft-regular';
 }
 .hp_mainContainer {
     width: 100%;
     height: 95vh;
-    background-image: url("../../assets/MainPageBackground.jpg");
-    background-size: cover;
-    background-position: center;
     padding-top: 2vh;
 }
 .hp_contentContainer {
@@ -33,7 +22,7 @@
     align-items: center;
     padding-top: 2em;
     background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0),rgba(0.2, 0.2, 0.2, 0.8) 50%);
-    width: 50vw;
+    width: 60vw;
     margin: auto;
     height: auto;
     min-height: 50vh;
@@ -44,13 +33,9 @@
     background-clip: text;
     background-image: url("../../assets/Stone.png");
     background-size: auto;
-    font-size: 20em;
+    font-size: 12vw;
     color: transparent;
     font-family: 'minecraft-ten';
-}
-.hp_logo img {
-    width: 100%;
-    height: auto;
 }
 
 .hp_startButton {
@@ -59,19 +44,47 @@
     background-image: url("../../assets/SpruceWood.png");
     background-size:auto;
     background-position: top;
-    font-size: 4em;
+    font-size: 2.5vw;
     color: #fff;
 }
 
 .hp_startButton:hover {
-    margin-top: 1em;
-    padding: 0.5em;
     background-image: url("../../assets/OakWood.png");
-    background-size:auto;
-    background-position: top;
-    font-size: 4em;
     cursor: pointer;
 }
+
+@media screen and (max-width:1480px) {
+    .hp_contentContainer {
+        width: 80vw;
+    }
+
+    .hp_logo {
+        font-size: 12vw;
+        background-size: contain;
+    }
+
+    .hp_startButton{
+        font-size: 2.5vw;
+        background-size: contain ;
+    }
+}
+
+@media screen and (max-width:780px) {
+    .hp_contentContainer {
+        width: 80vw;
+    }
+
+    .hp_logo {
+        font-size: 19vw;
+        background-size: contain;
+    }
+
+    .hp_startButton{
+        font-size: 5vw;
+        background-size: contain ;
+    }
+}
+
 
 
 
