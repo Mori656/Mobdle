@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './GamePage.css'
 import Block from '../gameBlock/GameBlock';
+import axios from 'axios';
 
 const versions = [
   'pre-alpha',
@@ -145,13 +146,22 @@ function GamePage() {
 
   const preview = () => {
     console.log(chosenMob)
+    console.log(triedOptions)
     
   }
 
   const getRandomMob = () => {
     const i = Math.floor(Math.random() * options.length);
-    return initialOptions[i];
+    return options[i];
   }
+
+  useEffect(() => {
+    // Pobieranie danych z backendu
+    axios.get('http://localhost:5000/api/mobs')
+      .then(res => setOptions(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
 
   useEffect(() => {
     const savedDate = localStorage.getItem('lastMobDate');
