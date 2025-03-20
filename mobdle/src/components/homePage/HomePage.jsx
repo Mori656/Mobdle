@@ -1,31 +1,21 @@
-import NavBar from "../navBar/NavBar"
+import { Link } from 'react-router-dom'
 import './HomePage.css'
-import GamePage from "../gamePage/GamePage"
-import { useState } from "react"
 
 function HomePage() {
 
-    const [game,setGame] = useState(false)
-
-    const startGame = () => {
-        setGame(true);
-    };
-
         return (
             <div>
-                <NavBar/>
-                <div className="hp_mainContainer">
-                    
-                    <div className="hp_contentContainer">
-                        <div className="hp_logo">
+                <div className="mainContainer">
+                    <div className="contentContainer">
+                        <div className="logo">
                             MOBDLE
                         </div>
-                        {!game ? <div className="hp_startButton" onClick={startGame}>
-                            Start game
-                        </div>:
-                        <GamePage/>
-                        }
                         
+                        <Link to="/game">
+                            <button className="hp_startButton">
+                                Start game
+                            </button>
+                        </Link> 
                     </div>
                 </div>
             </div>

@@ -66,4 +66,5 @@
 
 .gp_chosenContainer img {
     border: 3px #ccc solid;
+    width: 2vh;
 }

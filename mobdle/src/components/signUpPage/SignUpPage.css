@@ -1,0 +1,54 @@
+.rp_formContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin: 2em;
+}
+
+input {
+    height: 3em;
+    width: 40vw;
+    background-color: #a0c4ff ;
+    border: 1px solid #0c1a2b ;
+    color: black;
+    font-size: 20px;
+    padding: 0 1em;
+    max-width: 700px;
+}
+
+label{
+    color: #a0c4ff;
+    line-height: 2em;
+    font-size: 24px;
+}
+
+.rp_submitContainer{
+    margin: 1em 0;
+    display: flex;
+    justify-content: end;
+}
+
+.rp_signUpContainer{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    line-height: 0em;
+}
+
+.rp_submitButton {
+    width: 200px;
+    cursor: pointer;
+}
+
+.rp_submitButton:hover {
+    width: 200px;
+    background-color: #213a59;
+    color: #a0c4ff ;
+}
+
+a{
+    color: #999;
+    text-decoration: none;
+    font-size: 20px;
+}

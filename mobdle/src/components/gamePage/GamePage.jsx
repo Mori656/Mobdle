@@ -181,51 +181,61 @@ function GamePage() {
 
 
   return (
-    <div className='gp_mainContainer'>
-      <div className='gp_guessingZone'>
-        <Select options={options}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
-            placeholder="Wybierz opcję..."
-            components={{
-                DropdownIndicator:() => null,
-                IndicatorSeparator:() => null,
-            }}
-            isClearable={true}
-            value={selectedOption}
-            onChange={setSelectedOption}
-            key={options.length}
-        />
-        <button onClick={handleSubmit}>{'>>'}</button>
-        <button onClick={preview}>{'?'}</button>
-      </div>
-      
-
-      <div className='gp_chosenOptions'>
-
-        <h2>Wybrane:</h2>
-        <div className='gp_overflowBox'>
-          {triedOptions.map((item, index) => (
-            <div key={index} className='gp_chosenContainer'>
-              <img src={item.image} alt={item.name} />
-                <Block status={item.versionStatus} text={versions[item.version]}></Block>
-                <Block status={item.healthStatus} text={item.health}></Block>
-                <Block status={item.heightStatus} text={item.height}></Block>
-              {/* <div>{item.behavior.map((value, key) => (
-
-                <p key={key}>{value}</p>
-              ))}</div> */}
-                <Block status={item.behaviorStatus} text={item.behavior}></Block>
-                <Block status={item.movementStatus} text={item.movement}></Block>
-                <Block status={item.dimensionStatus} text={item.dimension}></Block>
-                
-            </div>
-          ))}
+    <div className="mainContainer">
+                    
+      <div className="contentContainer">
+        <div className="logo">
+            MOBDLE
         </div>
+
+        <div className='gp_mainContainer'>
+          <div className='gp_guessingZone'>
+            <Select options={options}
+                styles={customStyles}
+                formatOptionLabel={formatOptionLabel}
+                placeholder="Wybierz opcję..."
+                components={{
+                    DropdownIndicator:() => null,
+                    IndicatorSeparator:() => null,
+                }}
+                isClearable={true}
+                value={selectedOption}
+                onChange={setSelectedOption}
+                isSearchable={true}
+                getOptionLabel={(e) => e.name}
+            />
+            <button onClick={handleSubmit}>{'>>'}</button>
+            <button onClick={preview}>{'?'}</button>
+          </div>
           
+
+          <div className='gp_chosenOptions'>
+
+            <h2>Wybrane:</h2>
+            <div className='gp_overflowBox'>
+              {triedOptions.map((item, index) => (
+                <div key={index} className='gp_chosenContainer'>
+                  <img src={item.image} alt={item.name} />
+                    <Block status={item.versionStatus} text={versions[item.version]}></Block>
+                    <Block status={item.healthStatus} text={item.health}></Block>
+                    <Block status={item.heightStatus} text={item.height}></Block>
+                  {/* <div>{item.behavior.map((value, key) => (
+
+                    <p key={key}>{value}</p>
+                  ))}</div> */}
+                    <Block status={item.behaviorStatus} text={item.behavior}></Block>
+                    <Block status={item.movementStatus} text={item.movement}></Block>
+                    <Block status={item.dimensionStatus} text={item.dimension}></Block>
+                    
+                </div>
+              ))}
+            </div>
+              
+          </div>
+
+
+        </div>
       </div>
-
-
     </div>
   )
 }
