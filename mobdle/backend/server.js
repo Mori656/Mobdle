@@ -15,3 +15,13 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Serwer działa na porcie: ${port}`);
 });
+
+mongoose.connect('mongodb://localhost:27017/Mobdle', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Połączono z MongoDB'))
+.catch(err => console.error('Błąd połączenia z MongoDB:', err));
+
+const mobRoutes = require('./routes/mobs');
+app.use('/api/mobs', mobRoutes);
