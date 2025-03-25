@@ -25,3 +25,6 @@ mongoose.connect('mongodb://localhost:27017/Mobdle', {
 
 const mobRoutes = require('./routes/mobs');
 app.use('/api/mobs', mobRoutes);
+
+const userRoutes = require('./routes/users');
+app.use('/api/users', userRoutes);

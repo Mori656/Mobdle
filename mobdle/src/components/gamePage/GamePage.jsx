@@ -183,7 +183,7 @@ function GamePage() {
 
   useEffect(() => {
     // Pobieranie danych z backendu
-    axios.get('http://localhost:5000/api/mobs')
+    axios.get('http://localhost:5000/api/mobs/getAll')
       .then(res => setOptions(res.data))
       .catch(err => console.error(err));
   }, []);

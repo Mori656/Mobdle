@@ -13,7 +13,7 @@ function LogInPage() {
                             <label htmlFor="login">Login:</label><br/>
                             <input type='text'name='login' /><br/>
                             <label htmlFor="password">Password</label><br/>
-                            <input type="text" name='password'/><br/>
+                            <input type="password" name='password'/><br/>
                             <div className='lp_submitContainer'>
                             <div className='lp_signUpContainer'>
                                 <Link to="/signUp"><p>Sign Up</p></Link>
