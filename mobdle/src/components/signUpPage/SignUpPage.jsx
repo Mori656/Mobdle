@@ -10,11 +10,24 @@ function SignInPage() {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [popUp, setPopUp] = useState(false);
 
+    const [loginError, setLoginError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [repeatPasswordError, setRepeatPasswordError] = useState(false);
+
+    const [warning, setWarning] = useState(false);
+
     const submitForm = (event) => {
         event.preventDefault();
 
-        if (!login || !password || !repeatPassword) {
-            // klasy
+        setLoginError(false)
+        setPasswordError(false)
+        setRepeatPasswordError(false)
+        setWarning(false);
+        
+        if (!login || !password || !repeatPassword ) {
+            setLoginError(!login);
+            setPasswordError(!password);
+            setRepeatPasswordError(!repeatPassword);
             return;
         }
 
@@ -38,7 +51,9 @@ function SignInPage() {
 
             
         } else {
-            // komunikat
+            setPasswordError(true);
+            setRepeatPasswordError(true);
+            setWarning(true)
         }
     }
 
@@ -51,13 +66,37 @@ function SignInPage() {
                 <div className='rp_formContainer'>
                     <form method="post">
                         <label className='rp_label' htmlFor="login">Login:</label><br/>
-                        <input className='rp_input' type='text' name='login' value={login} onChange={(e) => setLogin(e.target.value)}/><br/>
+                        <input 
+                            className={loginError ? "rp_input rp_errorField" : "rp_input"} 
+                            type='text' 
+                            name='login' 
+                            value={login} 
+                            onChange={(e) => setLogin(e.target.value)} 
+                            required
+                        /><br/>
 
                         <label className='rp_label' htmlFor="password">Password</label><br/>
-                        <input className='rp_input' type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)}/><br/>
+                        <input 
+                            className={passwordError ? "rp_input rp_errorField" : "rp_input"} 
+                            type="password" 
+                            name='password' 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            required
+                        /><br/>
 
                         <label className='rp_label' htmlFor="password">Confirm Password</label><br/>
-                        <input className='rp_input' type="password" name='confirmPassword' value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)}/><br/>
+                        <input 
+                            className={repeatPasswordError ? "rp_input rp_errorField" : "rp_input"} 
+                            type="password" 
+                            name='confirmPassword' 
+                            value={repeatPassword} 
+                            onChange={(e) => setRepeatPassword(e.target.value)} 
+                            required
+                        /><br/>
+
+                        <p className={warning ? "rp_warning" : "rp_hidden"}>Passwords don't match!</p>
+                        <p className={(loginError || passwordError || repeatPasswordError) ? "rp_warning" : "rp_hidden"}>All fields must be filled in!</p>
 
                         <div className='rp_submitContainer'>
                             <div className='rp_signUpContainer'>

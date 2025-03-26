@@ -77,3 +77,16 @@
     height: 80%;
     z-index: 90;
 }
+
+.rp_errorField {
+    border-color: rgba(255, 0, 0, 0.6);
+    border-width: 3px;
+}
+
+.rp_warning {
+    color: #f00;
+}
+
+.rp_hidden {
+    display: none;
+}
