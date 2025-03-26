@@ -1,43 +1,3 @@
-body {
-    background-image: url("../../assets/MainPageBackground.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
-* {
-    box-sizing: border-box;
-    font-family: 'minecraft-regular';
-}
-.hp_mainContainer {
-    width: 100%;
-    height: 95vh;
-    padding-top: 2vh;
-}
-.hp_contentContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 2em;
-    background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0),rgba(0.2, 0.2, 0.2, 0.8) 50%);
-    width: 60vw;
-    margin: auto;
-    height: auto;
-    min-height: 50vh;
-    border-radius: 3em;
-}
-.hp_logo {
-    /* width: 90%; */
-    background-clip: text;
-    background-image: url("../../assets/Stone.png");
-    background-size: auto;
-    font-size: 12vw;
-    color: transparent;
-    font-family: 'minecraft-ten';
-}
-
 .hp_startButton {
     margin-top: 1em;
     padding: 0.5em;
@@ -46,6 +6,7 @@ body {
     background-position: top;
     font-size: 2.5vw;
     color: #fff;
+    text-decoration: none;
 }
 
 .hp_startButton:hover {

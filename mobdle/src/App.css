@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
+body {
+  background-image: url("assets/MainPageBackground.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
+  font-family: 'minecraft-regular';
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.mainContainer {
+  width: 100%;
+  height: 95vh;
+  padding-top: 2vh;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.contentContainer {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 2em;
+  background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0),rgba(0.2, 0.2, 0.2, 0.8) 50%);
+  width: 60vw;
+  margin: auto;
+  height: auto;
+  min-height: 50vh;
+  border-radius: 3em;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+  background-clip: text;
+  background-image: url("assets/Stone.png");
+  background-size: auto;
+  font-size: 12vw;
+  color: transparent;
+  font-family: 'minecraft-ten';
 }

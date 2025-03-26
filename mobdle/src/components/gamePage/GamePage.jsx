@@ -5,16 +5,42 @@ import Block from '../gameBlock/GameBlock';
 import axios from 'axios';
 
 const versions = [
-  'pre-alpha',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  'Beta 1.8',
+  "pre-alpha",
+  "alpha 1.0.8",
+  "alpha 1.0.11",
+  "alpha 1.0.14",
+  "alpha 1.2.0",
+  "beta 1.2",
+  "beta 1.4",
+  "beta 1.7",
+  "beta 1.8",
+  "1.0",
+  "1.2",
+  "1.2.1",
+  "1.3",
+  "1.4",
+  "1.4.2",
+  "1.5",
+  "1.6",
+  "1.6.1",
+  "1.7",
+  "1.8",
+  "1.9",
+  "1.10",
+  "1.11",
+  "1.12",
+  "1.13",
+  "1.14",
+  "1.15",
+  "1.16",
+  "1.16.2",
+  "1.17",
+  "1.18",
+  "1.19",
+  "1.20",
+  "1.20.5",
+  "1.21",
+  "1.21.4",
 ]
 
 const initialOptions = [
@@ -157,7 +183,7 @@ function GamePage() {
 
   useEffect(() => {
     // Pobieranie danych z backendu
-    axios.get('http://localhost:5000/api/mobs')
+    axios.get('http://localhost:5000/api/mobs/getAll')
       .then(res => setOptions(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -181,51 +207,61 @@ function GamePage() {
 
 
   return (
-    <div className='gp_mainContainer'>
-      <div className='gp_guessingZone'>
-        <Select options={options}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
-            placeholder="Wybierz opcję..."
-            components={{
-                DropdownIndicator:() => null,
-                IndicatorSeparator:() => null,
-            }}
-            isClearable={true}
-            value={selectedOption}
-            onChange={setSelectedOption}
-            key={options.length}
-        />
-        <button onClick={handleSubmit}>{'>>'}</button>
-        <button onClick={preview}>{'?'}</button>
-      </div>
-      
-
-      <div className='gp_chosenOptions'>
-
-        <h2>Wybrane:</h2>
-        <div className='gp_overflowBox'>
-          {triedOptions.map((item, index) => (
-            <div key={index} className='gp_chosenContainer'>
-              <img src={item.image} alt={item.name} />
-                <Block status={item.versionStatus} text={versions[item.version]}></Block>
-                <Block status={item.healthStatus} text={item.health}></Block>
-                <Block status={item.heightStatus} text={item.height}></Block>
-              {/* <div>{item.behavior.map((value, key) => (
-
-                <p key={key}>{value}</p>
-              ))}</div> */}
-                <Block status={item.behaviorStatus} text={item.behavior}></Block>
-                <Block status={item.movementStatus} text={item.movement}></Block>
-                <Block status={item.dimensionStatus} text={item.dimension}></Block>
-                
-            </div>
-          ))}
+    <div className="mainContainer">
+                    
+      <div className="contentContainer">
+        <div className="logo">
+            MOBDLE
         </div>
+
+        <div className='gp_mainContainer'>
+          <div className='gp_guessingZone'>
+            <Select options={options}
+                styles={customStyles}
+                formatOptionLabel={formatOptionLabel}
+                placeholder="Wybierz opcję..."
+                components={{
+                    DropdownIndicator:() => null,
+                    IndicatorSeparator:() => null,
+                }}
+                isClearable={true}
+                value={selectedOption}
+                onChange={setSelectedOption}
+                isSearchable={true}
+                getOptionLabel={(e) => e.name}
+            />
+            <button onClick={handleSubmit}>{'>>'}</button>
+            <button onClick={preview}>{'?'}</button>
+          </div>
           
+
+          <div className='gp_chosenOptions'>
+
+            <h2>Wybrane:</h2>
+            <div className='gp_overflowBox'>
+              {triedOptions.map((item, index) => (
+                <div key={index} className='gp_chosenContainer'>
+                  <img src={item.image} alt={item.name} />
+                    <Block status={item.versionStatus} text={versions[item.version]}></Block>
+                    <Block status={item.healthStatus} text={item.health}></Block>
+                    <Block status={item.heightStatus} text={item.height}></Block>
+                  {/* <div>{item.behavior.map((value, key) => (
+
+                    <p key={key}>{value}</p>
+                  ))}</div> */}
+                    <Block status={item.behaviorStatus} text={item.behavior}></Block>
+                    <Block status={item.movementStatus} text={item.movement}></Block>
+                    <Block status={item.dimensionStatus} text={item.dimension}></Block>
+                    
+                </div>
+              ))}
+            </div>
+              
+          </div>
+
+
+        </div>
       </div>
-
-
     </div>
   )
 }

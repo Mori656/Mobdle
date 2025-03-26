@@ -3,7 +3,7 @@ const router = express.Router();
 const Mob = require('../models/Mob');
 
 // Pobierz wszystkie moby
-router.get('/', async (req, res) => {
+router.get('/getAll', async (req, res) => {
   try {
     const mobs = await Mob.find();
     res.json(mobs);
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 // Dodaj nowego moba
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   const mob = new Mob({
     name: req.body.name,
     image: req.body.image,
