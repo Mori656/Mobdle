@@ -28,3 +28,6 @@ app.use('/api/mobs', mobRoutes);
 
 const userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);
+
+const leaderboardRoutes = require('./routes/leaderboard');
+app.use('/api/leaderboard', leaderboardRoutes);
