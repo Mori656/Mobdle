@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './HomePage.css'
+import Leaderboard from '../leaderboard/Leaderboard'
 
 function HomePage() {
 
@@ -16,6 +17,8 @@ function HomePage() {
                                 Start game
                             </button>
                         </Link> 
+
+                        <Leaderboard />
                     </div>
                 </div>
             </div>
