@@ -9,9 +9,15 @@ function LogInPage() {
     const [user, setUser] = useState();
     const [loginError, setLoginError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
+    const [wrongLogin, setWrongLogin] = useState(false)
 
 
     const handleSubmit = async (event) => {
+
+        setLoginError(false)
+        setPasswordError(false)
+        setWrongLogin(false);
+
         event.preventDefault();
 
         if (!login || !password) {
@@ -21,8 +27,12 @@ function LogInPage() {
         }
 
         await axios.get('http://localhost:5000/api/users/get/' + login)
-        .then(res => setUser(res.data))
-        .catch(err => console.error(err));
+            .then(res => setUser(res.data))
+            .catch(function (err) {
+                console.error(err);
+                setWrongLogin(true);
+            });
+
 
         console.log(user)
     }
@@ -55,12 +65,14 @@ function LogInPage() {
                             onChange={(e) => setPassword(e.target.value)} 
                             required
                         /><br/>
-                        
+
+                        <p className={(loginError || passwordError) ? "rp_warning" : "rp_hidden"}>All fields must be filled in!</p>
+                        <p className={(wrongLogin) ? "rp_warning" : "rp_hidden"}>Wrong login or password!</p>
+
                         <div className='lp_submitContainer'>
                         <div className='lp_signUpContainer'>
                             <Link to="/signUp"><p>Sign Up</p></Link>
                         </div>
-                            {/* <input type="submit" className='lp_submitButton' value="Log In"/> */}
                             <button className='lp_submitButton lp_input' onClick={handleSubmit}>Log In</button>
                         </div>
                     </form>

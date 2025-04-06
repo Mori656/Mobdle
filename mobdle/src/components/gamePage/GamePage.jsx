@@ -63,7 +63,7 @@ const customStyles = {
     padding: '4px',
     color:'#F0F',
     borderColor: '#a0c4ff',
-    fontSize: '3vh',
+    fontSize: '24px',
     cursor: 'pointer',
   }),
 
@@ -75,7 +75,7 @@ const customStyles = {
       ? '#0c1a2b'
       : '#a0c4ff',
     cursor: isDisabled ? 'not-allowed' : 'pointer',
-    fontSize: '3vh',
+    fontSize: '24px',
     ':active': {
       backgroundColor: '#ddd',
     },
@@ -194,15 +194,14 @@ function GamePage() {
     const savedMob = localStorage.getItem('lastMob');
 
     const today = new Date().toDateString();
-    // odkomentować pózniej
-    // if (savedDate !== today){
+    if (savedDate !== today){
       const randomMob = getRandomMob();
       localStorage.setItem('lastMobDate',today);
       localStorage.setItem('lastMob',JSON.stringify(randomMob));
       setChosenMob(randomMob);
-    // } else if (savedMob) {
-    //   setChosenMob(JSON.parse(savedMob));
-    // }
+    } else if (savedMob) {
+      setChosenMob(JSON.parse(savedMob));
+    }
   }, [options]);
 
 
@@ -219,7 +218,7 @@ function GamePage() {
             <Select options={options}
                 styles={customStyles}
                 formatOptionLabel={formatOptionLabel}
-                placeholder="Wybierz opcję..."
+                placeholder="Choose a mob..."
                 components={{
                     DropdownIndicator:() => null,
                     IndicatorSeparator:() => null,
@@ -234,38 +233,38 @@ function GamePage() {
             <button onClick={preview}>{'?'}</button>
           </div>
           
-
+          {triedOptions.length>0 && 
           <div className='gp_chosenOptions'>
 
-            <h2>Wybrane:</h2>
-
+            <h2>Chosen mobs:</h2>
             <div className='gp_overflowBox'>
-              <div className='gp_categories'>
-                <div>Mob</div>
-                <div>Version</div>
-                <div>Hp</div>
-                <div>Height</div>
-                <div>Behavior</div>
-                <div>Movement</div>
-                <div>Dimension</div>
-              </div>
-              {triedOptions.map((item, index) => (
-                <div key={index} className='gp_chosenContainer'>
-                  <img src={item.image} alt={item.name} title={item.name} />
-                    <Block status={item.versionStatus} text={versions[item.version]}></Block>
-                    <Block status={item.healthStatus} text={item.health}></Block>
-                    <Block status={item.heightStatus} text={item.height}></Block>
-                    <Block status={item.behaviorStatus} text={item.behavior}></Block>
-                    <Block status={item.movementStatus} text={item.movement}></Block>
-                    <Block status={item.dimensionStatus} text={item.dimension}></Block>
-                    
+              <div className='gp_overflowBoxFlip'>
+
+                <div className='gp_categories'>
+                  <div>Mob</div>
+                  <div>Version</div>
+                  <div>Hp</div>
+                  <div>Height</div>
+                  <div>Behavior</div>
+                  <div>Movement</div>
+                  <div>Dimension</div>
                 </div>
-              ))}
+
+                {triedOptions.map((item, index) => (
+                  <div key={index} className='gp_chosenContainer'>
+                    <img src={item.image} alt={item.name} title={item.name} />
+                      <Block status={item.versionStatus} text={versions[item.version]}></Block>
+                      <Block status={item.healthStatus} text={item.health}></Block>
+                      <Block status={item.heightStatus} text={item.height}></Block>
+                      <Block status={item.behaviorStatus} text={item.behavior}></Block>
+                      <Block status={item.movementStatus} text={item.movement}></Block>
+                      <Block status={item.dimensionStatus} text={item.dimension}></Block>
+                  </div>
+                ))}
+                
+              </div>
             </div>
-              
-          </div>
-
-
+          </div>}
         </div>
       </div>
     </div>

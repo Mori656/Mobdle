@@ -24,18 +24,28 @@ body {
   padding-top: 2em;
   padding-bottom: 2em;
   background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0), rgba(0.2, 0.2, 0.2, 0.9) 60%, rgba(0.2, 0.2, 0.2, 1) 100% );
-  width: 60vw;
+  width: 50em;
+  /* max-width: 50em; */
   margin: auto;
   height: auto;
-  min-height: 50vh;
-  border-radius: 3em;
+  min-height: 100%;
 }
 
 .logo {
   background-clip: text;
   background-image: url("assets/Stone.png");
   background-size: auto;
-  font-size: 12vw;
+  font-size: 12em;
   color: transparent;
   font-family: 'minecraft-ten';
+}
+
+@media screen and (max-width: 800px) {
+  .contentContainer {
+      width: 90vw;
+  }
+
+  .logo {
+    font-size: 20vw;
+  }
 }
