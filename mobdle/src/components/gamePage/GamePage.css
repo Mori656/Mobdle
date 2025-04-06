@@ -50,7 +50,7 @@
     padding-bottom: 10px;
 }
 
-.gp_chosenContainer div, .gp_chosenContainer img {
+.gp_chosenContainer div, .gp_chosenContainer img, .gp_categories div {
     display: flex;
     flex-direction: column;
     line-height: 0;
@@ -67,4 +67,15 @@
 .gp_chosenContainer img {
     border: 3px #ccc solid;
     width: 2vh;
+}
+
+.gp_categories{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    border-bottom: 3px #224 solid;
+}
+
+.gp_categories div{
+    min-height: 32px;
 }

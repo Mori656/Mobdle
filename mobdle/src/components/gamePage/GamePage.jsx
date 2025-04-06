@@ -194,16 +194,16 @@ function GamePage() {
     const savedMob = localStorage.getItem('lastMob');
 
     const today = new Date().toDateString();
-
-    if (savedDate !== today){
+    // odkomentować pózniej
+    // if (savedDate !== today){
       const randomMob = getRandomMob();
       localStorage.setItem('lastMobDate',today);
       localStorage.setItem('lastMob',JSON.stringify(randomMob));
       setChosenMob(randomMob);
-    } else if (savedMob) {
-      setChosenMob(JSON.parse(savedMob));
-    }
-  }, []);
+    // } else if (savedMob) {
+    //   setChosenMob(JSON.parse(savedMob));
+    // }
+  }, [options]);
 
 
   return (
@@ -238,17 +238,23 @@ function GamePage() {
           <div className='gp_chosenOptions'>
 
             <h2>Wybrane:</h2>
+
             <div className='gp_overflowBox'>
+              <div className='gp_categories'>
+                <div>Mob</div>
+                <div>Version</div>
+                <div>Hp</div>
+                <div>Height</div>
+                <div>Behavior</div>
+                <div>Movement</div>
+                <div>Dimension</div>
+              </div>
               {triedOptions.map((item, index) => (
                 <div key={index} className='gp_chosenContainer'>
-                  <img src={item.image} alt={item.name} />
+                  <img src={item.image} alt={item.name} title={item.name} />
                     <Block status={item.versionStatus} text={versions[item.version]}></Block>
                     <Block status={item.healthStatus} text={item.health}></Block>
                     <Block status={item.heightStatus} text={item.height}></Block>
-                  {/* <div>{item.behavior.map((value, key) => (
-
-                    <p key={key}>{value}</p>
-                  ))}</div> */}
                     <Block status={item.behaviorStatus} text={item.behavior}></Block>
                     <Block status={item.movementStatus} text={item.movement}></Block>
                     <Block status={item.dimensionStatus} text={item.dimension}></Block>
