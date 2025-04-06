@@ -47,7 +47,6 @@
 .gp_chosenContainer {
     display: flex;
     flex-direction: row;
-    /* gap:10px; */
     margin-top: 1vh;
     margin-bottom: 1vh;
     align-items: center;
@@ -76,13 +75,56 @@
 .gp_categories{
     display: flex;
     flex-direction: row;
-    /* gap:10px; */
     border-bottom: 3px #224 solid;
 }
 
 .gp_categories div{
     height: 32px;
-    /* border: 1px solid red; */
+}
+
+.gp_winContainer{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 25%;
+    
+    width: 40vw;
+    min-width: 240px;
+
+    background-color: rgba(5, 19, 53, 0.95);
+    border: 1px solid gold;
+    border-radius: 1em;
+    padding: 1em;
+    
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+.gp_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 3em;
+    min-width: 150px;
+    width: 40%;
+    margin: auto;
+    padding: 0 1em;
+
+    background-color: #a0c4ff ;
+    border: 1px solid #0c1a2b ;
+    border-radius: 1em;
+    
+    color: black;
+    font-size: 20px;
+}
+
+.gp_button:hover{
+    background-color: #0c1a2b;
+    color: #a0c4ff;
 }
 
 @media screen and (max-width: 800px) {
