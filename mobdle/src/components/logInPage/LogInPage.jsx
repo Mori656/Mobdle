@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './LogInPage.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function LogInPage() {
@@ -10,7 +10,7 @@ function LogInPage() {
     const [loginError, setLoginError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [wrongLogin, setWrongLogin] = useState(false)
-
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
 
@@ -26,16 +26,18 @@ function LogInPage() {
             return;
         }
 
-        await axios.get('http://localhost:5000/api/users/get/' + login)
-            .then(res => setUser(res.data))
-            .catch(function (err) {
-                console.error(err);
-                setWrongLogin(true);
+        try {
+            const res = await axios.post('http://localhost:5000/api/users/auth/' ,{ 
+                login,
+                password,
             });
 
-
-        console.log(user)
-    }
+            localStorage.setItem("token", res.data.token);
+            navigate('/')
+        } catch (err) {
+            setWrongLogin(true);
+        }
+    };
 
 
     return (

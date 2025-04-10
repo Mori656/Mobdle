@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const authMiddleware = require('../middlewares/authMiddleware')
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+
+require("dotenv").config();
+const SECRET = process.env.SECRET_KEY;
 
 // Pobierz wszystkich użytkowników
 router.get('/getAll', async(req, res) => {
@@ -42,11 +48,13 @@ router.get('/get/:login', async(req, res) => {
 
 // Dodaj użytkownika
 router.post('/add', async (req, res) => {
+    const hashed = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         nickname: req.body.nickname,
-        password: req.body.password,
+        password: hashed,
         isAdmin: req.body.isAdmin,
     });
+    
 
     try {
         const newUser = await user.save();
@@ -72,11 +80,20 @@ router.delete('/delete/:id', async (req, res) => {
 
 // Logowanie
 router.post('/auth', async (req, res) => {
-    res.status(200).json({ message: "jest git" });
+    const { login, password } = req.body;
+    const user = await User.findOne( {nickname: login} );
+    if (!user) return res.status(401).json({ message: "Brak użytkownika" });
+
+    const correct = await bcrypt.compare(password, user.password);
+    if (!correct) return res.status(401).json({ message: "Złe hasło" });
+
+    const token = jwt.sign({ login }, SECRET, { expiresIn: "1h" });
+
+    res.json({ token });
 })
 
 // Wylogowanie
-router.delete('/logout/:id', async (req, res) => {
+router.delete('/logout', authMiddleware, async (req, res) => {
     res.status(200).json({ message: "wylogowano" });
 })
 

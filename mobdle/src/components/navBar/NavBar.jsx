@@ -1,4 +1,6 @@
 import './NavBar.css'
+
+//useeffect na sprawdznie dzy jest tokken
 function NavBar() {
     return (
         <nav className="nb_navBar">
