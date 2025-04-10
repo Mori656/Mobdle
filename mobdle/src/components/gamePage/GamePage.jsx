@@ -3,6 +3,7 @@ import Select from 'react-select';
 import './GamePage.css'
 import Block from '../gameBlock/GameBlock';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const versions = [
   "pre-alpha",
@@ -42,11 +43,6 @@ const versions = [
   "1.21",
   "1.21.4",
 ]
-
-const initialOptions = [
-  { name: 'Zombie', image: 'https://minecraft.wiki/images/ZombieFace.png?d1bba', version: 0, health: 20, height: 1.95, behavior: ['Hostile'], movement: ['Walking'], dimension: ['Overworld']},
-  { name: 'Enderman', image: 'https://minecraft.wiki/images/EndermanFace.png?8ebeb', version: 9, health: 200, height: 2.9, behavior: ['Neutral'], movement: ['Walking','Teleportation'], dimension: ['End', 'Overworld', 'Nether']},
-];
 
 const customStyles = {
     
@@ -109,8 +105,9 @@ const formatOptionLabel = ({ name, image }) => (
   </div>
 );
 
+
 function GamePage() {
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [triedOptions, setTriedOptions] = useState([]);
   const [chosenMob, setChosenMob] = useState([]);
@@ -135,7 +132,7 @@ function GamePage() {
   const checkStatus2 = (info) => {
     const selectedValue = selectedOption[info];
     const chosenValue = chosenMob[info];
-    if (selectedValue == chosenValue) {
+    if (selectedValue === chosenValue) {
       return 'correct'
     } else if (selectedValue < chosenValue ) {
       return 'more'
@@ -143,6 +140,20 @@ function GamePage() {
       return 'less'
     }
   };
+
+  const checkWin = (block) => {
+    if(block.versionStatus !== 'correct' ||
+      block.healthStatus !== 'correct' ||
+      block.heightStatus !== 'correct' ||
+      block.behaviorStatus !== 'correct' ||
+      block.movementStatus !== 'correct' ||
+      block.dimensionStatus !== 'correct'
+    ){return}
+    else{
+      const wc = document.getElementsByClassName("gp_winContainer")[0];
+      wc.style.display = "flex" ;
+    }
+  }
 
   const handleSubmit = () => {
     if(selectedOption) {
@@ -164,6 +175,7 @@ function GamePage() {
         dimensionStatus: checkStatus('dimension')
       }
 
+      checkWin(tmp);
       setTriedOptions((prevChosen) => [tmp, ...prevChosen])
       setOptions((prevOptions) => prevOptions.filter(option => option.name !== selectedOption.name));
       setSelectedOption(null);
@@ -261,11 +273,21 @@ function GamePage() {
                       <Block status={item.dimensionStatus} text={item.dimension}></Block>
                   </div>
                 ))}
-                
+
               </div>
             </div>
           </div>}
         </div>
+
+        <div className='gp_winContainer'>
+          <p>Congratulations!</p>
+          <p>Your score is: {triedOptions.length}</p>
+          <p>You can see best scores on the leaderboard:</p>
+          <Link to="/">
+              <button className='gp_button'>Leaderbaord</button>
+          </Link>
+        </div>
+
       </div>
     </div>
   )
