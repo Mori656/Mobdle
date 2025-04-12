@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cron = require('node-cron');
+const Mob = require('./models/Mob');
+const MobOfTheDay = require('./models/MobOfTheDay');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,3 +34,21 @@ app.use('/api/users', userRoutes);
 
 const leaderboardRoutes = require('./routes/leaderboard');
 app.use('/api/leaderboard', leaderboardRoutes);
+
+cron.schedule('7 17 * * *', async () => {
+  try {
+    const allMobs = await Mob.find();
+    const randomIndex = Math.floor(Math.random() * allMobs.length);
+    const selectedMob = allMobs[randomIndex];
+  
+    await MobOfTheDay.findOneAndUpdate(
+      {},
+      { mob: selectedMob, date: new Date() },
+      { upsert: true, new: true }
+  );
+  console.log(`Wylosowano moba dnia: ${selectedMob.name}`);
+
+  } catch (err) {
+    console.error("błąd", err);
+  }
+})

@@ -1,7 +1,12 @@
+import { useEffect, useState } from 'react'
 import './NavBar.css'
+import { useAuthStore } from '../../stores/authStore'
 
-//useeffect na sprawdznie dzy jest tokken
+
 function NavBar() {
+
+    const { isLoggedIn, authLogout } = useAuthStore()
+
     return (
         <nav className="nb_navBar">
             <div className="nb_mainPageContainer">
@@ -11,7 +16,7 @@ function NavBar() {
             </div>
             <div className="nb_logInContainer">
                 <div className="nb_logInContainerButton">
-                    <a href="/login">Log In</a>
+                    {isLoggedIn ? <a href='/' onClick={authLogout}>Log Out</a> : <a href="/login">Log In</a>}
                 </div>
             </div>
         </nav>

@@ -12,6 +12,20 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         required: true,
+    },
+    wonToday: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    triedOptions: {
+        type: Array,
+        required: true,
+        default: [],
+    },
+    lastTry: {
+        type: Date,
+        required: true,
     }
 }, { timestamps: true });
 

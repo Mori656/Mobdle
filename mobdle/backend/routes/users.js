@@ -53,6 +53,9 @@ router.post('/add', async (req, res) => {
         nickname: req.body.nickname,
         password: hashed,
         isAdmin: req.body.isAdmin,
+        wonToday: false,
+        triedOptions: [],
+        lastTry: new Date().toISOString().split('T')[0],
     });
     
 
@@ -87,6 +90,15 @@ router.post('/auth', async (req, res) => {
     const correct = await bcrypt.compare(password, user.password);
     if (!correct) return res.status(401).json({ message: "Złe hasło" });
 
+    const today = new Date().toISOString().split('T')[0];
+
+    if (user.lastTry !== today) {
+        user.triedOptions = [];
+        user.wonToday = false;
+        user.lastTry = today;
+        await user.save();
+    }
+
     const token = jwt.sign({ login }, SECRET, { expiresIn: "1h" });
 
     res.json({ token });
@@ -96,5 +108,19 @@ router.post('/auth', async (req, res) => {
 router.delete('/logout', authMiddleware, async (req, res) => {
     res.status(200).json({ message: "wylogowano" });
 })
+
+// Update tried options
+router.post('/try', authMiddleware, async (req, res) => {
+    const user = req.user;
+    const triedOption = req.body.option;
+
+    if (!Array.isArray(user.triedOptions)) {
+        user.triedOptions = [];
+    }
+    user.triedOptions.unshift(triedOption);
+    await user.save();
+
+    res.json({ triedOptions: user.triedOptions });
+});
 
 module.exports = router;

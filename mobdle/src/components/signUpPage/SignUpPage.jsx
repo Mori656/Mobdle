@@ -35,7 +35,7 @@ function SignInPage() {
             axios.post('http://localhost:5000/api/users/add', {
                 nickname: login,
                 password: password,
-                isAdmin: false
+                isAdmin: false,
             })
             .then(function (response) {
                 console.log("dodano: ", response);

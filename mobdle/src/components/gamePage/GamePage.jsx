@@ -5,112 +5,23 @@ import Block from '../gameBlock/GameBlock';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const versions = [
-  "pre-alpha",
-  "alpha 1.0.8",
-  "alpha 1.0.11",
-  "alpha 1.0.14",
-  "alpha 1.2.0",
-  "beta 1.2",
-  "beta 1.4",
-  "beta 1.7",
-  "beta 1.8",
-  "1.0",
-  "1.2",
-  "1.2.1",
-  "1.3",
-  "1.4",
-  "1.4.2",
-  "1.5",
-  "1.6",
-  "1.6.1",
-  "1.7",
-  "1.8",
-  "1.9",
-  "1.10",
-  "1.11",
-  "1.12",
-  "1.13",
-  "1.14",
-  "1.15",
-  "1.16",
-  "1.16.2",
-  "1.17",
-  "1.18",
-  "1.19",
-  "1.20",
-  "1.20.5",
-  "1.21",
-  "1.21.4",
-]
+import { versions } from './gamePageDependencies/versions';
 
-const customStyles = {
-    
-  container: (styles) => ({
-      ...styles,
-      width: '100%',
-      margin: '0 auto',
-  }),
-
-  control: (styles) => ({
-    ...styles,
-    backgroundColor: '#a0c4ff',
-    borderRadius: '0',
-    padding: '4px',
-    color:'#F0F',
-    borderColor: '#a0c4ff',
-    fontSize: '24px',
-    cursor: 'pointer',
-  }),
-
-  option: (styles, { isDisabled, isFocused, isSelected }) => ({
-    ...styles,
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: isFocused
-      ? '#0c1a2b'
-      : '#a0c4ff',
-    cursor: isDisabled ? 'not-allowed' : 'pointer',
-    fontSize: '24px',
-    ':active': {
-      backgroundColor: '#ddd',
-    },
-  }),
-
-  singleValue: (styles) => ({
-    ...styles,
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  }),
-
-  menu: (styles) => ({
-    ...styles,
-    borderRadius: '0px',
-    overflow: 'hidden',
-    marginTop: '2px',
-    backgroundColor: '#a0c4ff',
-  }),
-
-};
-
-const formatOptionLabel = ({ name, image }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <img
-      src={image}
-      alt={name}
-      style={{ width: 24, height: 24, borderRadius: 4 }}
-    />
-    {name}
-  </div>
-);
+import { useGameStore } from '../../stores/gameStore';
+import { useAuthStore } from '../../stores/authStore';
 
 
 function GamePage() {
-  const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [triedOptions, setTriedOptions] = useState([]);
-  const [chosenMob, setChosenMob] = useState([]);
+  const { 
+    options, setOptions, modifyOptions,
+    chosenMob, setChosenMob,
+    triedOptions, setTriedOptions
+   } = useGameStore()
+
+  const {
+    isLoggedin
+  } = useAuthStore
 
   const checkStatus = (info) => {
     const selectedValue = selectedOption[info];
@@ -157,7 +68,6 @@ function GamePage() {
 
   const handleSubmit = () => {
     if(selectedOption) {
-
       const tmp = { 
         name: selectedOption.name, 
         image: selectedOption.image, 
@@ -176,8 +86,8 @@ function GamePage() {
       }
 
       checkWin(tmp);
-      setTriedOptions((prevChosen) => [tmp, ...prevChosen])
-      setOptions((prevOptions) => prevOptions.filter(option => option.name !== selectedOption.name));
+      setTriedOptions(tmp);
+      modifyOptions(selectedOption.name);
       setSelectedOption(null);
     }
   }  
@@ -185,7 +95,8 @@ function GamePage() {
   const preview = () => {
     console.log(chosenMob)
     console.log(triedOptions)
-    
+    // setOptions()
+    // localStorage.clear()
   }
 
   const getRandomMob = () => {
@@ -193,27 +104,24 @@ function GamePage() {
     return options[i];
   }
 
-  useEffect(() => {
-    // Pobieranie danych z backendu
-    axios.get('http://localhost:5000/api/mobs/getAll')
-      .then(res => setOptions(res.data))
-      .catch(err => console.error(err));
-  }, []);
-
 
   useEffect(() => {
     const savedDate = localStorage.getItem('lastMobDate');
     const savedMob = localStorage.getItem('lastMob');
 
-    const today = new Date().toDateString();
-    if (savedDate !== today){
-      const randomMob = getRandomMob();
-      localStorage.setItem('lastMobDate',today);
-      localStorage.setItem('lastMob',JSON.stringify(randomMob));
-      setChosenMob(randomMob);
-    } else if (savedMob) {
-      setChosenMob(JSON.parse(savedMob));
+    if(savedMob){
+      const today = new Date().toDateString();
+      if (savedDate !== today){
+        const randomMob = getRandomMob();
+        localStorage.setItem('lastMobDate',today);
+        // localStorage.setItem('lastMob',JSON.stringify(randomMob));
+        setChosenMob(randomMob);
+      }
+    } else {
+      setChosenMob(getRandomMob());
     }
+
+    
   }, [options]);
 
 
@@ -291,6 +199,66 @@ function GamePage() {
       </div>
     </div>
   )
-}
+};
+
+const customStyles = {
+  
+  container: (styles) => ({
+      ...styles,
+      width: '100%',
+      margin: '0 auto',
+  }),
+
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: '#a0c4ff',
+    borderRadius: '0',
+    padding: '4px',
+    color:'#F0F',
+    borderColor: '#a0c4ff',
+    fontSize: '24px',
+    cursor: 'pointer',
+  }),
+
+  option: (styles, { isDisabled, isFocused, isSelected }) => ({
+    ...styles,
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: isFocused
+      ? '#0c1a2b'
+      : '#a0c4ff',
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    fontSize: '24px',
+    ':active': {
+      backgroundColor: '#ddd',
+    },
+  }),
+
+  singleValue: (styles) => ({
+    ...styles,
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  }),
+
+  menu: (styles) => ({
+    ...styles,
+    borderRadius: '0px',
+    overflow: 'hidden',
+    marginTop: '2px',
+    backgroundColor: '#a0c4ff',
+  }),
+};
+
+const formatOptionLabel = ({ name, image }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <img
+      src={image}
+      alt={name}
+      style={{ width: 24, height: 24, borderRadius: 4 }}
+    />
+    {name}
+  </div>
+);
 
 export default GamePage

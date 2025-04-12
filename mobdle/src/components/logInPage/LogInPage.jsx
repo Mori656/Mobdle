@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import './LogInPage.css'
 import { Link, useNavigate } from 'react-router-dom'
+import './LogInPage.css'
 import axios from 'axios';
+
+import { useAuthStore } from '../../stores/authStore'
+
 
 function LogInPage() {
     const [login, setLogin] = useState("");
@@ -10,6 +13,9 @@ function LogInPage() {
     const [loginError, setLoginError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [wrongLogin, setWrongLogin] = useState(false)
+    
+    const { authLogin } = useAuthStore()
+    
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -32,7 +38,7 @@ function LogInPage() {
                 password,
             });
 
-            localStorage.setItem("token", res.data.token);
+            authLogin(res.data.token);
             navigate('/')
         } catch (err) {
             setWrongLogin(true);

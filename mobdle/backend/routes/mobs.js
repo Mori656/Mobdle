@@ -33,4 +33,28 @@ router.post('/add', async (req, res) => {
   }
 });
 
+router.get('/daily', async (req, res) => {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+        let dailyMob = await MobOfTheDay.findOne();
+
+        if (!dailyMob || dailyMob.date.toISOString().split('T')[0] !== today) {
+          const allMobs = await Mob.find();
+          const randomIndex = Math.floor(Math.random() * allMobs.length);
+          const selectedMob = allMobs[randomIndex];
+
+          dailyMob = await MobOfTheDay.findOneAndUpdate(
+              {},
+              { mob: selectedMob, date: new Date() },
+              { upsert: true, new: true }
+          );
+        }
+
+        res.json(dailyMob.mob);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
+
 module.exports = router;
