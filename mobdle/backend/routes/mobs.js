@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Mob = require('../models/Mob');
+const MobOfTheDay = require('../models/MobOfTheDay');
 
 // Pobierz wszystkie moby
 router.get('/getAll', async (req, res) => {

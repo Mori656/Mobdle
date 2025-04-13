@@ -13,15 +13,31 @@ import { useAuthStore } from '../../stores/authStore';
 
 function GamePage() {
   const [selectedOption, setSelectedOption] = useState(null);
+
   const { 
     options, setOptions, modifyOptions,
     chosenMob, setChosenMob,
-    triedOptions, setTriedOptions
-   } = useGameStore()
+    triedOptions, setTriedOptions, modifyTriedOptions,
+    wonToday, setWonToday,
+  } = useGameStore()
 
   const {
-    isLoggedin
-  } = useAuthStore
+    isLoggedIn
+  } = useAuthStore()
+
+  const gameReset = () => {
+    const lastGameDate = localStorage.getItem('lastGameDate');
+    const today = new Date().toDateString();
+    if (today !== lastGameDate || !lastGameDate) {
+      localStorage.setItem('lastGameDate', today);
+      localStorage.setItem('wonToday', 'false');
+
+      localStorage.removeItem('triedOptions');
+      localStorage.removeItem('options');
+
+      setOptions();
+    }
+  }
 
   const checkStatus = (info) => {
     const selectedValue = selectedOption[info];
@@ -63,6 +79,11 @@ function GamePage() {
     else{
       const wc = document.getElementsByClassName("gp_winContainer")[0];
       wc.style.display = "flex" ;
+      if (isLoggedIn) {
+        // tu sie doda do bazy dla usera
+      } else {
+        localStorage.setItem('wonToday', 'true');
+      }
     }
   }
 
@@ -86,8 +107,8 @@ function GamePage() {
       }
 
       checkWin(tmp);
-      setTriedOptions(tmp);
-      modifyOptions(selectedOption.name);
+      modifyTriedOptions(tmp);
+      // modifyOptions();
       setSelectedOption(null);
     }
   }  
@@ -95,35 +116,22 @@ function GamePage() {
   const preview = () => {
     console.log(chosenMob)
     console.log(triedOptions)
-    // setOptions()
+    console.log(wonToday);
     // localStorage.clear()
-  }
-
-  const getRandomMob = () => {
-    const i = Math.floor(Math.random() * options.length);
-    return options[i];
   }
 
 
   useEffect(() => {
-    const savedDate = localStorage.getItem('lastMobDate');
-    const savedMob = localStorage.getItem('lastMob');
+    gameReset();
+    setChosenMob();
+    setWonToday();
+    setTriedOptions();
+    // localStorage.clear()
+  }, []);
 
-    if(savedMob){
-      const today = new Date().toDateString();
-      if (savedDate !== today){
-        const randomMob = getRandomMob();
-        localStorage.setItem('lastMobDate',today);
-        // localStorage.setItem('lastMob',JSON.stringify(randomMob));
-        setChosenMob(randomMob);
-      }
-    } else {
-      setChosenMob(getRandomMob());
-    }
-
-    
-  }, [options]);
-
+  useEffect(() => {
+    modifyOptions();
+  }, [triedOptions])
 
   return (
     <div className="mainContainer">
@@ -134,6 +142,7 @@ function GamePage() {
         </div>
 
         <div className='gp_mainContainer'>
+        {wonToday == false && (
           <div className='gp_guessingZone'>
             <Select options={options}
                 styles={customStyles}
@@ -152,7 +161,7 @@ function GamePage() {
             <button onClick={handleSubmit}>{'>>'}</button>
             <button onClick={preview}>{'?'}</button>
           </div>
-          
+        )}
           {triedOptions.length>0 && 
           <div className='gp_chosenOptions'>
 
@@ -171,6 +180,7 @@ function GamePage() {
                 </div>
 
                 {triedOptions.map((item, index) => (
+                  item?(
                   <div key={index} className='gp_chosenContainer'>
                     <img src={item.image} alt={item.name} title={item.name} />
                       <Block status={item.versionStatus} text={versions[item.version]}></Block>
@@ -179,7 +189,7 @@ function GamePage() {
                       <Block status={item.behaviorStatus} text={item.behavior}></Block>
                       <Block status={item.movementStatus} text={item.movement}></Block>
                       <Block status={item.dimensionStatus} text={item.dimension}></Block>
-                  </div>
+                  </div>) : null                  
                 ))}
 
               </div>

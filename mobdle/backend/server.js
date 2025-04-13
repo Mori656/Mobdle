@@ -35,7 +35,7 @@ app.use('/api/users', userRoutes);
 const leaderboardRoutes = require('./routes/leaderboard');
 app.use('/api/leaderboard', leaderboardRoutes);
 
-cron.schedule('7 17 * * *', async () => {
+cron.schedule('0 0 * * *', async () => {
   try {
     const allMobs = await Mob.find();
     const randomIndex = Math.floor(Math.random() * allMobs.length);

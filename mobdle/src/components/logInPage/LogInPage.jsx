@@ -37,7 +37,7 @@ function LogInPage() {
                 login,
                 password,
             });
-
+            localStorage.setItem('login', login);
             authLogin(res.data.token);
             navigate('/')
         } catch (err) {
