@@ -1,3 +1,9 @@
+.lb_mainContainer {
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+}
+
 .lb_title {
     font-family: 'minecraft-ten';
     background-image: url("../../assets/GoldBlock.png");
@@ -7,18 +13,19 @@
 
     text-align: center;
 
-    font-size: 6vw;
+    font-size: 6em;
+    margin: 1em auto;
+    
 }
 
 .lb_leaderboard {
-
 }
 
 .lb_scoreItem {
     display: flex;
     flex-direction: row;
     color: #fff;
-    width: 50vw;
+    width: 100%;
     margin-bottom: 0.5em;
     padding: 0 1em;
 }
@@ -46,22 +53,23 @@
     justify-content: end;
 }
 
-@media screen and (max-width:450px) {
-    .lb_leaderboard div {
-        font-size: 16;
-    }
-
-    .lb_scoreItem {
-        width: 60vw;
-    }
-}
-
-@media screen and (min-width:920px) {
+@media screen and (max-width:920px) {
     .lb_leaderboard div {
         font-size: 32px;
     }
 
-    .lb_scoreItem {
-        width: 40vw;
+    .lb_title{
+        font-size: 5em;
     }
 }
+
+@media screen and (max-width:450px) {
+    .lb_leaderboard div {
+        font-size: 1.2em;
+    }
+
+    .lb_title{
+        font-size: 2em;
+    }
+}
+

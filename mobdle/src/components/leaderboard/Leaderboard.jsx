@@ -18,7 +18,7 @@ function Leaderboard() {
     }
 
     return (
-        <div>
+        <div className='lb_mainContainer'>
             <h1 className='lb_title'>Leaderboard</h1>
             <div className='lb_leaderboard'>
                 {leaderboard.map((item, index) => ( 
