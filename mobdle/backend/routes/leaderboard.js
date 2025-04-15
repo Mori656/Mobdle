@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Score = require('../models/Score');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.post('/add', async (req, res) => {
+router.post('/add', authMiddleware, async (req, res) => {
     const score = new Score({
         nickname: req.body.nickname,
         guessNumber: req.body.guessNumber,

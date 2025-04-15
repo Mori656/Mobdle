@@ -66,7 +66,7 @@ export const useGameStore = create((set) => ({
         try {
             const token = localStorage.getItem('token');
             if(token) {
-                const res = await axios.post('http://localhost:5000/api/users/try', {
+                const res = await axios.put('http://localhost:5000/api/users/try', {
                     option: selectedOption
                 }, {
                     headers: {

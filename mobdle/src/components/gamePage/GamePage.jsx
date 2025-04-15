@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { versions } from './gamePageDependencies/versions';
 
 import { useGameStore } from '../../stores/gameStore';
-import { useAuthStore } from '../../stores/authStore';
 
 
 function GamePage() {
@@ -20,10 +19,6 @@ function GamePage() {
     triedOptions, setTriedOptions, modifyTriedOptions,
     wonToday, setWonToday,
   } = useGameStore()
-
-  const {
-    isLoggedIn
-  } = useAuthStore()
 
   const gameReset = () => {
     const lastGameDate = localStorage.getItem('lastGameDate');
@@ -68,7 +63,7 @@ function GamePage() {
     }
   };
 
-  const checkWin = (block) => {
+  const checkWin = async (block) => {
     if(block.versionStatus !== 'correct' ||
       block.healthStatus !== 'correct' ||
       block.heightStatus !== 'correct' ||
@@ -79,8 +74,29 @@ function GamePage() {
     else{
       const wc = document.getElementsByClassName("gp_winContainer")[0];
       wc.style.display = "flex" ;
-      if (isLoggedIn) {
-        // tu sie doda do bazy dla usera
+      
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+        const login = localStorage.getItem('login');
+      
+        await axios.post(`http://localhost:5000/api/leaderboard/add`, {
+          nickname: login,
+          guessNumber: triedOptions.length + 1
+        }, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        });
+        await axios.patch(`http://localhost:5000/api/users/win/${login}`, {}, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        });
+      
+        }catch (err) {
+          console.error("Błąd przy wysyłaniu danych do API:", err.response?.data || err.message);
+        }
       } else {
         localStorage.setItem('wonToday', 'true');
       }

@@ -63,8 +63,8 @@ router.post('/auth', async (req, res) => {
     if (!correct) return res.status(401).json({ message: "Złe hasło" });
 
     const today = new Date().toISOString().split('T')[0];
-
-    if (user.lastTry !== today) {
+    const lastTryDate = new Date(user.lastTry).toISOString().split('T')[0];
+    if (lastTryDate !== today) {
         user.triedOptions = [];
         user.wonToday = false;
         user.lastTry = today;
@@ -81,7 +81,7 @@ router.delete('/logout', authMiddleware, async (req, res) => {
     res.status(200).json({ message: "wylogowano" });
 })
 
-router.post('/try', authMiddleware, async (req, res) => {
+router.put('/try', authMiddleware, async (req, res) => {
     const user = req.user;
     const triedOption = req.body.option;
 
@@ -103,6 +103,21 @@ router.get('/:login', authMiddleware, async (req, res) => {
             return res.status(404).json({ message: "user not found" });
         }
         res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
+
+router.patch('/win/:login', authMiddleware, async (req, res) => {
+    try {
+        const login = req.params.login
+        const user = await User.findOne( {nickname: login} );
+        if (!user) {
+            return res.status(404).json({ message: "user not found" });
+        }
+        user.wonToday = true;
+        await user.save();
+        res.status(200).json({ message: "win is modiefied" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
