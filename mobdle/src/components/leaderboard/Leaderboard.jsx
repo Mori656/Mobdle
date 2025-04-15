@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import './Leaderboard.css'
 import axios from 'axios'
+import { useAuthStore } from '../../stores/authStore';
 
 
 function Leaderboard() {
     const [leaderboard, setLeaderboard] = useState([]);
+
+    const { isAdmin } = useAuthStore()
 
     useEffect(() => {
         // Pobieranie danych z backendu
@@ -16,7 +19,7 @@ function Leaderboard() {
     function scoreSort(input) {        
         return [...input].sort((a, b) => a.guessNumber - b.guessNumber);
     }
-
+    
     return (
         <div className='lb_mainContainer'>
             <h1 className='lb_title'>Leaderboard</h1>
@@ -26,6 +29,7 @@ function Leaderboard() {
                         <div className='lb_index'>{index + 1}.</div>
                         <div className='lb_nickname'>{item.nickname}</div>
                         <div className='lb_score'>{item.guessNumber}</div>
+                        {isAdmin && <div>X</div>}
                     </div>
                 ))}
             </div>

@@ -73,7 +73,7 @@ router.post('/auth', async (req, res) => {
 
     const token = jwt.sign({ login }, SECRET, { expiresIn: "1h" });
 
-    res.json({ token });
+    res.json({ token: token, isAdmin: user.isAdmin });
 })
 
 // Wylogowanie

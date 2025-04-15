@@ -14,7 +14,7 @@ function LogInPage() {
     const [passwordError, setPasswordError] = useState(false)
     const [wrongLogin, setWrongLogin] = useState(false)
     
-    const { authLogin } = useAuthStore()
+    const { authLogin, authAdmin } = useAuthStore()
     
     const navigate = useNavigate();
 
@@ -38,6 +38,9 @@ function LogInPage() {
                 password,
             });
             localStorage.setItem('login', login);
+            if(res.data.isAdmin){
+                authAdmin()
+            }
             authLogin(res.data.token);
             navigate('/')
         } catch (err) {
