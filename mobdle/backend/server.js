@@ -4,6 +4,7 @@ const cors = require('cors');
 const cron = require('node-cron');
 const Mob = require('./models/Mob');
 const MobOfTheDay = require('./models/MobOfTheDay');
+const Leaderboard = require('./models/Score')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -37,6 +38,7 @@ app.use('/api/leaderboard', leaderboardRoutes);
 
 cron.schedule('0 0 * * *', async () => {
   try {
+    // Select mob of the day
     const allMobs = await Mob.find();
     const randomIndex = Math.floor(Math.random() * allMobs.length);
     const selectedMob = allMobs[randomIndex];
@@ -45,8 +47,13 @@ cron.schedule('0 0 * * *', async () => {
       {},
       { mob: selectedMob, date: new Date() },
       { upsert: true, new: true }
-  );
-  console.log(`Wylosowano moba dnia: ${selectedMob.name}`);
+    );
+    console.log(`Selected mob of the day: ${selectedMob.name}`);
+
+    // Reset leaderboard
+
+    await Leaderboard.deleteMany() 
+    console.log(`Leaderboard reset`);
 
   } catch (err) {
     console.error("błąd", err);

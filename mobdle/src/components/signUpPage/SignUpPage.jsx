@@ -13,6 +13,7 @@ function SignInPage() {
     const [loginError, setLoginError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [repeatPasswordError, setRepeatPasswordError] = useState(false);
+    const [sameLoginError, setSameLoginError] = useState(false);
 
     const [warning, setWarning] = useState(false);
 
@@ -22,6 +23,7 @@ function SignInPage() {
         setLoginError(false)
         setPasswordError(false)
         setRepeatPasswordError(false)
+        setSameLoginError(false)
         setWarning(false);
         
         if (!login || !password || !repeatPassword ) {
@@ -47,6 +49,9 @@ function SignInPage() {
             })
             .catch(function (error) {
                 console.log("rejestracja error: ", error);
+                if(error.status == 409){
+                    setSameLoginError(true);
+                }
             });
 
             
@@ -95,6 +100,7 @@ function SignInPage() {
                             required
                         /><br/>
 
+                        <p className={sameLoginError ? "rp_warning" : "rp_hidden"}>Login already taken!</p>
                         <p className={warning ? "rp_warning" : "rp_hidden"}>Passwords don't match!</p>
                         <p className={(loginError || passwordError || repeatPasswordError) ? "rp_warning" : "rp_hidden"}>All fields must be filled in!</p>
 

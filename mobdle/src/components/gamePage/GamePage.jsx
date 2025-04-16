@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { versions } from './gamePageDependencies/versions';
 
 import { useGameStore } from '../../stores/gameStore';
+import { useAuthStore } from '../../stores/authStore';
 
 
 function GamePage() {
@@ -19,6 +20,10 @@ function GamePage() {
     triedOptions, setTriedOptions, modifyTriedOptions,
     wonToday, setWonToday,
   } = useGameStore()
+
+  const {
+    isLoggedIn
+  } = useAuthStore()
 
   const gameReset = () => {
     const lastGameDate = localStorage.getItem('lastGameDate');
@@ -156,6 +161,12 @@ function GamePage() {
         <div className="logo">
             MOBDLE
         </div>
+
+        {!isLoggedIn && 
+          <div className='gp_loginWarning'>
+            Log in to save your score!
+          </div>
+        }
 
         <div className='gp_mainContainer'>
         {wonToday == false && (

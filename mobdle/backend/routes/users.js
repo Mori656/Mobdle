@@ -20,6 +20,11 @@ router.get('/getAll', async(req, res) => {
 
 // Dodaj użytkownika
 router.post('/add', async (req, res) => {
+    const exist = await User.findOne({nickname: req.body.nickname})
+    if (exist){
+        return res.status(409).json({message: "Login already taken"});
+    }
+
     const hashed = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         nickname: req.body.nickname,
@@ -29,7 +34,6 @@ router.post('/add', async (req, res) => {
         triedOptions: [],
         lastTry: new Date().toISOString().split('T')[0],
     });
-    
 
     try {
         const newUser = await user.save();

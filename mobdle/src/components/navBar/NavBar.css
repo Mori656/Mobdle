@@ -1,8 +1,8 @@
 .nb_navBar {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Wyrównanie elementów w pionie */
-    background-color: #0c1a2b; /* Ciemny niebieski (kolor nocnego nieba) */
+    align-items: center; 
+    background-color: #0c1a2b; 
     color: white;
     padding: 16px;
     position: sticky;
@@ -13,8 +13,8 @@
 }
 
 .nb_mainPageContainer {
-    display: flex; /* Umożliwia użycie flexboxa */
-    align-items: center; /* Wyrównanie elementów w pionie */
+    display: flex; 
+    align-items: center;
 }
 
 .nb_mainPageContainerButton a {
@@ -48,8 +48,4 @@
 .nb_logInContainerButton a:hover {
     background-color: #a0c4ff;
     color: #0c1a2b;
-}
-
-@media screen and (max-width:480px) {
-
 }

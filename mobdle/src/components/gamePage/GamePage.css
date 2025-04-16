@@ -127,6 +127,12 @@
     color: #a0c4ff;
 }
 
+.gp_loginWarning{
+    margin: 1em auto;
+    color: rgb(234, 255, 42);
+    font-size: 24px;
+}
+
 @media screen and (max-width: 800px) {
     .gp_guessingZone {
         margin: 3vh 6vw;

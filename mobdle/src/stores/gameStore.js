@@ -3,8 +3,6 @@ import axios from 'axios';
 
 
 export const useGameStore = create((set) => ({
-    // =============================================================
-    // Opcje
     options: JSON.parse(localStorage.getItem('options')) || [],
     setOptions: () => {
         axios.get('http://localhost:5000/api/mobs/getAll')
@@ -26,8 +24,6 @@ export const useGameStore = create((set) => ({
         })
     },
 
-    // =============================================================
-    // Wybrany mob
     chosenMob: '',
     setChosenMob: () => {
         axios.get('http://localhost:5000/api/mobs/daily')
@@ -38,10 +34,7 @@ export const useGameStore = create((set) => ({
             .catch(err => console.error(err));
         
     },
-
-    // =============================================================
-    // Wybrane opcje
-    // triedOptions: JSON.parse(localStorage.getItem('triedOptions')) || [],
+    
     triedOptions: [],
     setTriedOptions: async () => {
         const token = localStorage.getItem('token');
