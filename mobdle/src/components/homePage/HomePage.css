@@ -15,15 +15,6 @@
 }
 
 @media screen and (max-width:1480px) {
-    .hp_contentContainer {
-        width: 80vw;
-    }
-
-    .hp_logo {
-        font-size: 12vw;
-        background-size: contain;
-    }
-
     .hp_startButton{
         font-size: 2.5vw;
         background-size: contain ;
@@ -31,15 +22,6 @@
 }
 
 @media screen and (max-width:780px) {
-    .hp_contentContainer {
-        width: 80vw;
-    }
-
-    .hp_logo {
-        font-size: 19vw;
-        background-size: contain;
-    }
-
     .hp_startButton{
         font-size: 5vw;
         background-size: contain ;

@@ -25,7 +25,6 @@ body {
   padding-bottom: 2em;
   background-image: linear-gradient(rgba(0.2, 0.2, 0.2, 0), rgba(0.2, 0.2, 0.2, 0.9) 60%, rgba(0.2, 0.2, 0.2, 1) 100% );
   width: 50em;
-  /* max-width: 50em; */
   margin: auto;
   height: auto;
   min-height: 100%;

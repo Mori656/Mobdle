@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './LogInPage.css'
-import { Link } from 'react-router-dom'
 import axios from 'axios';
+
+import { useAuthStore } from '../../stores/authStore'
+
 
 function LogInPage() {
     const [login, setLogin] = useState("");
@@ -10,7 +13,10 @@ function LogInPage() {
     const [loginError, setLoginError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [wrongLogin, setWrongLogin] = useState(false)
-
+    
+    const { authLogin, authAdmin } = useAuthStore()
+    
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
 
@@ -26,16 +32,21 @@ function LogInPage() {
             return;
         }
 
-        await axios.get('http://localhost:5000/api/users/get/' + login)
-            .then(res => setUser(res.data))
-            .catch(function (err) {
-                console.error(err);
-                setWrongLogin(true);
+        try {
+            const res = await axios.post('http://localhost:5000/api/users/auth/' ,{ 
+                login,
+                password,
             });
-
-
-        console.log(user)
-    }
+            localStorage.setItem('login', login);
+            if(res.data.isAdmin){
+                authAdmin()
+            }
+            authLogin(res.data.token);
+            navigate('/')
+        } catch (err) {
+            setWrongLogin(true);
+        }
+    };
 
 
     return (
