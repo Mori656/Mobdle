@@ -1,0 +1,51 @@
+.nb_navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    background-color: #0c1a2b; 
+    color: white;
+    padding: 16px;
+    position: sticky;
+    top: 0px;
+    height: 5vh;
+
+    z-index: 1000;
+}
+
+.nb_mainPageContainer {
+    display: flex; 
+    align-items: center;
+}
+
+.nb_mainPageContainerButton a {
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    transition: color 0.3s ease;
+    margin-right: 20px;
+}
+
+.nb_mainPageContainerButton a:hover {
+    color: #a0c4ff;
+}
+
+.nb_logInContainer {
+    display: flex; 
+    align-items: center;
+}
+
+.nb_logInContainerButton a {
+    text-decoration: none;
+    font-size: 2vh;
+    font-weight: normal;
+    padding: 8px 16px;
+    border: 1px solid #a0c4ff; 
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #a0c4ff ;
+}
+
+.nb_logInContainerButton a:hover {
+    background-color: #a0c4ff;
+    color: #0c1a2b;
+}

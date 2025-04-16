@@ -1,0 +1,33 @@
+.hp_startButton {
+    margin-top: 1em;
+    padding: 0.5em;
+    background-image: url("../../assets/SpruceWood.png");
+    background-size:auto;
+    background-position: top;
+    font-size: 2.5vw;
+    color: #fff;
+    text-decoration: none;
+}
+
+.hp_startButton:hover {
+    background-image: url("../../assets/OakWood.png");
+    cursor: pointer;
+}
+
+@media screen and (max-width:1480px) {
+    .hp_startButton{
+        font-size: 2.5vw;
+        background-size: contain ;
+    }
+}
+
+@media screen and (max-width:780px) {
+    .hp_startButton{
+        font-size: 5vw;
+        background-size: contain ;
+    }
+}
+
+
+
+

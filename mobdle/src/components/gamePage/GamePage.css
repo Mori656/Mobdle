@@ -1,0 +1,141 @@
+.gp_mainContainer {
+    width: 100%;
+}
+
+.gp_guessingZone {
+    margin: 2em 3em;
+    margin-bottom: 0;
+
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.gp_guessingZone button {
+    font-size: 24px;
+    background-color: #a0c4ff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.gp_chosenOptions {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 5vh;
+    padding: 0px 10px;
+}
+
+.gp_overflowBox {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #a0c4ff #0c1a2b;
+    align-items: safe center;
+
+    transform: rotateX(180deg);
+}
+
+.gp_overflowBoxFlip {
+    transform: rotateX(180deg);
+    padding-top: 10px;
+}
+
+
+.gp_chosenContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: center;
+    border-bottom: 3px #224 solid;
+    padding-bottom: 10px;
+}
+
+.gp_chosenContainer div, .gp_chosenContainer img, .gp_categories div {
+    display: flex;
+    flex-direction: column;
+    line-height: 0;
+
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.gp_chosenContainer img {
+    border: 3px #ccc solid;
+}
+
+.gp_categories{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 3px #224 solid;
+}
+
+.gp_categories div{
+    height: 32px;
+}
+
+.gp_winContainer{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 25%;
+    
+    width: 40vw;
+    min-width: 240px;
+
+    background-color: rgba(5, 19, 53, 0.95);
+    border: 1px solid gold;
+    border-radius: 1em;
+    padding: 1em;
+    
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+.gp_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 3em;
+    min-width: 150px;
+    width: 40%;
+    margin: auto;
+    padding: 0 1em;
+
+    background-color: #a0c4ff ;
+    border: 1px solid #0c1a2b ;
+    border-radius: 1em;
+    
+    color: black;
+    font-size: 20px;
+}
+
+.gp_button:hover{
+    background-color: #0c1a2b;
+    color: #a0c4ff;
+}
+
+.gp_loginWarning{
+    margin: 1em auto;
+    color: rgb(234, 255, 42);
+    font-size: 24px;
+}
+
+@media screen and (max-width: 800px) {
+    .gp_guessingZone {
+        margin: 3vh 6vw;
+    }
+
+  }

@@ -1,0 +1,24 @@
+.block {
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .block.correct {
+    background-image: url("../../assets/Green_Concrete.png");
+  }
+  
+  .block.wrong {
+    background-image: url("../../assets/Red_Concrete.png");
+  }
+  
+  .block.partial {
+    background-image: url("../../assets/Yellow_Concrete.png");
+  }
+
+  .block.less {
+    background-image: url("../../assets/less.png");
+  }
+
+  .block.more {
+    background-image: url("../../assets/more.png");
+  }
