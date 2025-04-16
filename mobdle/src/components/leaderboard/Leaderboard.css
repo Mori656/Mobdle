@@ -53,9 +53,30 @@
     justify-content: end;
 }
 
+.lb_deleteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(251, 25, 25, 0.811);
+    border-right: solid 1px rgba(255, 217, 0, 0.571);
+    border-bottom: solid 2px rgba(255, 217, 0, 0.806);
+    border-radius: 0.4em;
+    
+    padding: 0.5em;
+    height: 1.5em;
+    margin-left: 0.2em;
+    margin-bottom: 2px;
+}
+
+.lb_deleteButton:hover {
+    background-color: rgb(90, 8, 8);
+    border: none;
+}
+
 @media screen and (max-width:920px) {
     .lb_leaderboard div {
-        font-size: 32px;
+        font-size: 24px;
     }
 
     .lb_title{
@@ -65,7 +86,7 @@
 
 @media screen and (max-width:650px) {
     .lb_leaderboard div {
-        font-size: 28px;
+        font-size: 20px;
     }
 
     .lb_title{
