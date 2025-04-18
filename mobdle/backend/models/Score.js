@@ -9,7 +9,7 @@ const scoreSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
-}, { timestamps: true })
+})
 
 const Score = mongoose.model('Score', scoreSchema);
 module.exports = Score;
