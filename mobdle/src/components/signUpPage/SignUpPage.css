@@ -8,7 +8,7 @@
 
 .rp_input {
     height: 3em;
-    width: 40vw;
+    width: 100%;
     background-color: #a0c4ff ;
     border: 1px solid #0c1a2b ;
     color: black;
@@ -62,6 +62,7 @@
     align-items: center;
     color: white;
     width: 50vw;
+    min-width: 10em;
     z-index: 100;
     position: absolute;
     top: 25%;

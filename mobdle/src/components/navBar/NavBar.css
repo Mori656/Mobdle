@@ -7,7 +7,7 @@
     padding: 16px;
     position: sticky;
     top: 0px;
-    height: 5vh;
+    height: 3em;
 
     z-index: 1000;
 }
@@ -36,7 +36,7 @@
 
 .nb_logInContainerButton a {
     text-decoration: none;
-    font-size: 2vh;
+    font-size: 14px;
     font-weight: normal;
     padding: 8px 16px;
     border: 1px solid #a0c4ff; 
