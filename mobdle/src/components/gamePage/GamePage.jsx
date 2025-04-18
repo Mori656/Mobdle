@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import './GamePage.css'
 import Block from '../gameBlock/GameBlock';
 import axios from 'axios';
@@ -22,7 +22,7 @@ function GamePage() {
   } = useGameStore()
 
   const {
-    isLoggedIn
+    isLoggedIn, isAdmin
   } = useAuthStore()
 
   const gameReset = () => {
@@ -129,7 +129,6 @@ function GamePage() {
 
       checkWin(tmp);
       modifyTriedOptions(tmp);
-      // modifyOptions();
       setSelectedOption(null);
     }
   }  
@@ -138,7 +137,6 @@ function GamePage() {
     console.log(chosenMob)
     console.log(triedOptions)
     console.log(wonToday);
-    // localStorage.clear()
   }
 
 
@@ -184,9 +182,11 @@ function GamePage() {
                 onChange={setSelectedOption}
                 isSearchable={true}
                 getOptionLabel={(e) => e.name}
+                filterOption={createFilter(filterConfig)}
+                openMenuOnClick={false}
             />
             <button onClick={handleSubmit}>{'>>'}</button>
-            <button onClick={preview}>{'?'}</button>
+            {isAdmin && <button onClick={preview}>{'?'}</button>}
           </div>
         )}
           {triedOptions.length>0 && 
@@ -251,19 +251,20 @@ const customStyles = {
     backgroundColor: '#a0c4ff',
     borderRadius: '0',
     padding: '4px',
-    color:'#F0F',
+    color:'#FFF',
     borderColor: '#a0c4ff',
     fontSize: '24px',
     cursor: 'pointer',
   }),
 
-  option: (styles, { isDisabled, isFocused, isSelected }) => ({
+  option: (styles, { isDisabled, isFocused}) => ({
     ...styles,
     display: 'flex',
     alignItems: 'center',
     backgroundColor: isFocused
       ? '#0c1a2b'
       : '#a0c4ff',
+    color: '#000',
     cursor: isDisabled ? 'not-allowed' : 'pointer',
     fontSize: '24px',
     ':active': {
@@ -285,6 +286,11 @@ const customStyles = {
     marginTop: '2px',
     backgroundColor: '#a0c4ff',
   }),
+};
+
+const filterConfig = {
+  ignoreCase: true,
+  matchFrom: 'start',
 };
 
 const formatOptionLabel = ({ name, image }) => (
